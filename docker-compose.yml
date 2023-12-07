@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: main_database
+    volumes:
+      - ./create.sql:/docker-entrypoint-initdb.d/create.sql
+      - ./functionAndProcedure.sql:/docker-entrypoint-initdb.d/functionAndProcedure.sql
+      - ./index.sql:/docker-entrypoint-initdb.d/index.sql
+      - ./trigger.sql:/docker-entrypoint-initdb.d/trigger.sql
+      - ./generator/generated.sql:/docker-entrypoint-initdb.d/generated.sql
+    ports:
+      - '5433:5432'
